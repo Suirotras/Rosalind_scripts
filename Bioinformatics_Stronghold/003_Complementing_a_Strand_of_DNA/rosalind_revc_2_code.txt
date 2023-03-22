@@ -1,0 +1,23 @@
+with open("rosalind_revc.txt", "r") as f_in, open("output.txt", 'w') as f_out:
+    string = f_in.read()
+    string = string.strip()
+
+    #Reverse string
+    string = string.upper()[::-1]
+    #get nucleotide pairs
+    
+    for pos in range(len(string)):
+        if string[pos] == "A":
+            string = string[:pos] + "T" + string[pos+1:]
+        elif string[pos] == "T":
+            string = string[:pos] + "A" + string[pos+1:]
+        elif string[pos] == "C":
+            string = string[:pos] + "G" + string[pos+1:]
+        elif string[pos] == "G":
+            string = string[:pos] + "C" + string[pos+1:]
+
+    print(string)
+
+    f_out.write(string)
+
+#string[:pos] + "U" + string[pos+1:]

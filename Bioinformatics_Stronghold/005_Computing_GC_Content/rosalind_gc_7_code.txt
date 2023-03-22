@@ -1,0 +1,67 @@
+import os
+
+os.chdir('C:/Users/User/Desktop/Rosalind_scripts')
+
+with open("rosalind_gc.txt", "r") as f_in, open("output.txt", 'w') as f_out:
+    
+    GC_dict = {}
+
+    # get total line count
+    for line_number, line in enumerate(f_in):
+        pass
+    
+    max_line_number = line_number
+    
+    # reset file index
+    f_in.seek(0)
+    
+    for line_number, line in enumerate(f_in):
+        line = line.strip()
+
+        if line.startswith("A") or line.startswith("C") or line.startswith("G") or line.startswith("T"):
+            seq_list.append(line)
+        
+        if line.startswith(">"):
+
+            # act different at first line
+            if line_number == 0:
+
+                # create list for joining sequences
+                seq_list = []
+
+                # update seq_id
+                line = line.strip(">")
+                seq_id = line
+            else:
+                # at new sequence id, join all lines together to form a single sequence
+                seq = ''.join(seq_list)
+                
+                #calculate GC content
+                GC_content = (float(seq.count("G")) + float(seq.count("C"))) / (float(len(seq))) * float(100)
+                #add to dictionary
+                GC_dict[seq_id] = GC_content
+
+                # reset list
+                seq_list = []
+                # update seq_id
+                line = line.strip(">")
+                seq_id = line
+
+        # perform at end of line    
+        if line_number == max_line_number:
+            
+            seq_list.append(line)
+            # at new sequence id, join all lines together to form a single sequence
+            seq = ''.join(seq_list)
+        
+            #calculate GC content
+            GC_content = (float(seq.count("G")) + float(seq.count("C"))) / (float(len(seq))) * float(100)
+            #add to dictionary
+            GC_dict[seq_id] = GC_content
+    
+    #pick highest GC content
+    highest_key = max(GC_dict, key=GC_dict.get)
+    highest_value = float(max(GC_dict.values()))
+
+
+    f_out.write("{}\n{}".format(highest_key, highest_value))

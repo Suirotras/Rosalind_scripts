@@ -1,0 +1,11 @@
+with open("rosalind_rna.txt", "r") as f_in, open("output.txt", 'w') as f_out:
+    string = f_in.read()
+    string = string.strip()
+    
+    for pos, nuc in enumerate(string):
+        if nuc.upper() == "T":
+            string = string[:pos] + "U" + string[pos+1:]
+
+    f_out.write(string)
+
+#string[:pos] + "U" + string[pos+1:]

@@ -1,0 +1,21 @@
+import os
+
+os.chdir('C:/Users/User/Desktop/Rosalind_scripts')
+
+with open("rosalind_fib.txt", "r") as f_in, open("output.txt", 'w') as f_out:
+    string = f_in.read()
+    string = string.strip()
+
+    n = int(string.split(" ")[0])
+    k = int(string.split(" ")[1])
+    
+    #initialize the sequence variables
+    F1, F2 = 1, 1
+
+    for i in range(n):
+        if i+1 != 1 and i+1 != 2:
+            Fn = F1 + F2*k
+            F2 = F1
+            F1 = Fn
+
+    f_out.write(str(Fn))
